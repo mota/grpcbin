@@ -2,10 +2,12 @@ syntax = "proto3";
 
 package grpcbin;
 
+import "google/api/annotations.proto";
+
 service GRPCBin {
-  rpc Index(EmptyMessage) returns (IndexReply) {}
-  rpc Empty(EmptyMessage) returns (EmptyMessage) {}
-  rpc DummyUnary(DummyMessage) returns (DummyMessage) {}
+  rpc Index(EmptyMessage) returns (IndexReply) { option (google.api.http) = {get: "/index"}; }
+  rpc Empty(EmptyMessage) returns (EmptyMessage) { option (google.api.http) = {get: "/empty"}; }
+  rpc DummyUnary(DummyMessage) returns (DummyMessage) { option (google.api.http) = {post: "/dummy/unary"}; }
   rpc DummyServerStream(DummyMessage) returns (stream DummyMessage) {}
   rpc DummyClientStream(stream DummyMessage) returns (DummyMessage) {}
   rpc DummyBidirectionalStreamStream(stream DummyMessage) returns (stream DummyMessage) {}
